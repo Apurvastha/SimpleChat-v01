@@ -32,6 +32,16 @@ def logout_view(request):
 @login_required
 def user_list(request):
     users = User.objects.exclude(id=request.user.id)
+    
+    for user in users:
+        # counting the messages between current user and rest of the users
+        count = Message.objects.filter(
+            (Q(sender=request.user) & Q(receiver=user)) |
+            (Q(sender=user) & Q(receiver=request.user))
+        ).count()
+        # Add the count as an attribute to the user object
+        user.msg_count = count
+    
     return render(request, 'chat/user_list.html', {'users': users})
 
 @login_required
