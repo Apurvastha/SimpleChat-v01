@@ -1,4 +1,4 @@
-# Simple Chat App
+# Sajilo Chat
 
 A real-time messaging web application built using **Django**. It allows users to register, log in, and send messages to each other.
 
